@@ -1,0 +1,87 @@
+h1 {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-size: 1.25em;
+  letter-spacing: 2px;
+}
+
+h2 {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  padding: 20px 0;
+  font-size: 1em;
+  letter-spacing: 2px;
+  padding: 0 0 10px 0;
+}
+
+p {
+  padding-bottom: 10px;
+}
+
+.invoice, .addItemForm {
+  position: relative;
+  left: 50%;
+  transform: translateX(-58.5%);
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 50px;
+  font-family: 'Open Sans', sans-serif;
+  background-color: white;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+.updateItemForm, .itemDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.invoiceItem {
+  border-top: 1px dashed #C7CBD2;
+  margin: 0;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.formInput {
+  margin: 10px 0;
+  padding: 10px;
+}
+
+button {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-size: 1em;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  letter-spacing: 1.25px;
+  margin-top: 10px;
+  background-color: #F18889;
+  width: 140px;
+}
+
+button:hover {
+  color: #F18889;
+  background-color: white;
+  border: .5px solid #F18889;
+  cursor: pointer;
+}
+
+p {
+  margin: 0;
+}
+
+input {
+  border-radius: 5px;
+  border: .5px solid #C7CBD2;
+  font-size: 1em;
+  font-family: 'Open Sans', sans-serif;
+}
