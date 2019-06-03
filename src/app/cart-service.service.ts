@@ -8,19 +8,19 @@ export class CartServiceService {
   constructor(private http: HttpClient) {}
 
   getAllItems() {
-    return this.http.get("/api/cartItems", { responseType: "json"});
+    return this.http.get("/cart-items", { responseType: "json"});
   }
 
   addItem(id: number, product: string, price: number, quantity: number) {
-    return this.http.post("/api/cartItems", { id: id, product: product, price: price, quantity: quantity }, { responseType: "json"});
+    return this.http.post("/cart-items", { id: id, product: product, price: price, quantity: quantity }, { responseType: "json"});
   }
 
   deleteItem(id: number) {
     console.log(id);
-    return this.http.delete(`/api/cartItems/${id}`, { responseType: "json"});
+    return this.http.delete(`/cart-items/${id}`, { responseType: "json"});
   }
 
   replaceItem(id: number, newId: number, newProduct: string, newPrice: number, newQuantity: number) {
-    return this.http.put(`/api/cartItems/${id}`, { id: newId, product: newProduct, price: newPrice, quantity: newQuantity }, { responseType: "json"});
+    return this.http.put(`/cart-items/${id}`, { id: newId, product: newProduct, price: newPrice, quantity: newQuantity }, { responseType: "json"});
   }
 }

@@ -6,7 +6,7 @@ const routes = require("./routes");
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-app.use("/api", routes);
+app.use("/", routes);
 
 const port = 3001;
 
