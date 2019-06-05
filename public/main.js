@@ -41,7 +41,7 @@ module.exports = "h1 {\n  margin: 0;\n  font-family: 'Open Sans', sans-serif;\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section class=\"invoice\">\n  <h1>Invoice</h1>\n  <div *ngFor=\"let item of cartItems\" class=\"invoiceItem\">\n    <div class=\"itemDetails\">\n      <h2>Item details</h2>\n      <p>ID: {{ item.id }}</p>\n      <p>Product: {{ item.product }}</p>\n      <p>Price: {{ item.price }}</p>\n      <p>Quantity: {{ item.quantity }}</p>\n      <button (click)=\"deleteItem(item.id)\">Delete</button>\n    </div>\n\n    <form #updateItem=\"ngForm\" (ngSubmit)=\"replaceItem(updateItem.value.id, updateItem.value.newId, updateItem.value.newProduct, updateItem.value.newPrice, updateItem.value.newQuantity)\" class=\"updateItemForm\">\n      <h2>Edit item</h2>\n      <label for=\"\">New ID:</label>\n      <input type=\"text\" ngModel name=\"newId\" />\n      <label for=\"\">New product:</label>\n      <input type=\"text\" ngModel name=\"newProduct\" />\n      <label for=\"\">New price:</label>\n      <input type=\"text\" ngModel name=\"newPrice\" />\n      <label for=\"\">New quantity:</label>\n      <input type=\"text\" ngModel name=\"newQuantity\" />\n      <button>Save</button>\n    </form>\n  </div>\n</section>\n\n<form #addItemForm=\"ngForm\" (ngSubmit)=\"addItem(addItemForm.value.id, addItemForm.value.product, addItemForm.value.price, addItemForm.value.quantity)\" class=\"addItemForm\">\n  <h1>Add item</h1>\n  <label for=\"\">ID:</label>\n  <input type=\"text\" ngModel name=\"id\" class=\"formInput\" />\n  <label for=\"\">Product:</label>\n  <input type=\"text\" ngModel name=\"product\" class=\"formInput\" />\n  <label for=\"\">Price:</label>\n  <input type=\"text\" ngModel name=\"price\" class=\"formInput\" />\n  <label for=\"\">Quantity:</label>\n  <input type=\"text\" ngModel name=\"quantity\" class=\"formInput\" />\n  <button>Add</button>\n</form>\n"
+module.exports = "<p>This is a test</p>\n\n<div *ngFor=\"let item of cartItems\">\n  <p>{{ item.id }}</p>\n</div>\n\n<!-- <section class=\"invoice\">\n  <h1>Invoice</h1>\n  <div *ngFor=\"let item of cartItems\" class=\"invoiceItem\">\n    <div class=\"itemDetails\">\n      <h2>Item details</h2>\n      <p>ID: {{ item.id }}</p>\n      <p>Product: {{ item.product }}</p>\n      <p>Price: {{ item.price }}</p>\n      <p>Quantity: {{ item.quantity }}</p>\n      <button (click)=\"removeItem(item.id)\">Delete</button>\n    </div>\n\n    <form #updateItem=\"ngForm\" (ngSubmit)=\"replaceItem(updateItem.value.id, updateItem.value.newId, updateItem.value.newProduct, updateItem.value.newPrice, updateItem.value.newQuantity)\" class=\"updateItemForm\">\n      <h2>Edit item</h2>\n      <label for=\"\">New ID:</label>\n      <input type=\"text\" ngModel name=\"newId\" />\n      <label for=\"\">New product:</label>\n      <input type=\"text\" ngModel name=\"newProduct\" />\n      <label for=\"\">New price:</label>\n      <input type=\"text\" ngModel name=\"newPrice\" />\n      <label for=\"\">New quantity:</label>\n      <input type=\"text\" ngModel name=\"newQuantity\" />\n      <button>Save</button>\n    </form>\n  </div>\n</section>\n\n<form #addItemForm=\"ngForm\" (ngSubmit)=\"addItem(addItemForm)\" class=\"addItemForm\">\n  <h1>Add item</h1>\n  <label for=\"\">ID:</label>\n  <input type=\"text\" ngModel name=\"id\" class=\"formInput\" />\n  <label for=\"\">Product:</label>\n  <input type=\"text\" ngModel name=\"product\" class=\"formInput\" />\n  <label for=\"\">Price:</label>\n  <input type=\"text\" ngModel name=\"price\" class=\"formInput\" />\n  <label for=\"\">Quantity:</label>\n  <input type=\"text\" ngModel name=\"quantity\" class=\"formInput\" />\n  <button>Add</button>\n</form> -->\n"
 
 /***/ }),
 
@@ -69,26 +69,53 @@ var AppComponent = /** @class */ (function () {
             _this.cartItems = response;
         });
     }
-    AppComponent.prototype.addItem = function (id, product, price, quantity) {
+    // addItem(id: number, product: string, price: number, quantity: number) {
+    //   this.apiService
+    //     .addItem(id, product, price, quantity)
+    //     .subscribe(response => {
+    //       this.cartItems = response;
+    //     });
+    // }
+    AppComponent.prototype.addItem = function (form) {
         var _this = this;
         this.apiService
-            .addItem(id, product, price, quantity)
+            .addItem(form.value)
             .subscribe(function (response) {
             _this.cartItems = response;
         });
     };
-    AppComponent.prototype.replaceItem = function (id, newId, newProduct, newPrice, newQuantity) {
+    // replaceItem(
+    //   id: number,
+    //   newId: number,
+    //   newProduct: string,
+    //   newPrice: number,
+    //   newQuantity: number
+    // ) {
+    //   this.apiService
+    //     .replaceItem(id, newId, newProduct, newPrice, newQuantity)
+    //     .subscribe(response => {
+    //       this.cartItems = response;
+    //     });
+    // }
+    AppComponent.prototype.updateItem = function (item) {
         var _this = this;
         this.apiService
-            .replaceItem(id, newId, newProduct, newPrice, newQuantity)
+            .updateItem(item)
             .subscribe(function (response) {
             _this.cartItems = response;
         });
     };
-    AppComponent.prototype.deleteItem = function (id) {
+    // deleteItem(id: number) {
+    //   console.log(id);    
+    //   this.apiService.deleteItem(id).subscribe(response => {
+    //     this.cartItems = response;
+    //   });
+    // }
+    AppComponent.prototype.removeItem = function (id) {
         var _this = this;
-        console.log(id);
-        this.apiService.deleteItem(id).subscribe(function (response) {
+        this.apiService
+            .removeItem(id)
+            .subscribe(function (response) {
             _this.cartItems = response;
         });
     };
@@ -176,17 +203,26 @@ var CartServiceService = /** @class */ (function () {
         this.http = http;
     }
     CartServiceService.prototype.getAllItems = function () {
-        return this.http.get("/api/cartItems", { responseType: "json" });
+        return this.http.get("/cart-items", { responseType: "json" });
     };
-    CartServiceService.prototype.addItem = function (id, product, price, quantity) {
-        return this.http.post("/api/cartItems", { id: id, product: product, price: price, quantity: quantity }, { responseType: "json" });
+    // addItem(id: number, product: string, price: number, quantity: number) {
+    //   return this.http.post("/cart-items", { id: id, product: product, price: price, quantity: quantity }, { responseType: "json"});
+    // }
+    CartServiceService.prototype.addItem = function (item) {
+        return this.http.post("/cart-items", item, { responseType: "json" });
     };
-    CartServiceService.prototype.deleteItem = function (id) {
-        console.log(id);
-        return this.http.delete("/api/cartItems/" + id, { responseType: "json" });
+    // replaceItem(id: number, newId: number, newProduct: string, newPrice: number, newQuantity: number) {
+    //   return this.http.put(`/cart-items/${id}`, { id: newId, product: newProduct, price: newPrice, quantity: newQuantity }, { responseType: "json"});
+    // }
+    CartServiceService.prototype.updateItem = function (item) {
+        return this.http.put("/cart-items/" + item.id, item, { responseType: "json" });
     };
-    CartServiceService.prototype.replaceItem = function (id, newId, newProduct, newPrice, newQuantity) {
-        return this.http.put("/api/cartItems/" + id, { id: newId, product: newProduct, price: newPrice, quantity: newQuantity }, { responseType: "json" });
+    // deleteItem(id: number) {
+    //   console.log(id);
+    //   return this.http.delete(`/cart-items/${id}`, { responseType: "json"});
+    // }
+    CartServiceService.prototype.removeItem = function (id) {
+        return this.http.delete("/cart-items/" + id, { responseType: "json" });
     };
     CartServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -262,7 +298,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/wenzelheather/Desktop/bootcamp/Labs/express-cart/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/wenzelheather/Desktop/bootcamp/Labs/express-cart pt 2/src/main.ts */"./src/main.ts");
 
 
 /***/ })

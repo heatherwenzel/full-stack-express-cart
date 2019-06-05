@@ -7,7 +7,49 @@
       <p>Product: {{ item.product }}</p>
       <p>Price: {{ item.price }}</p>
       <p>Quantity: {{ item.quantity }}</p>
-      <button (click)="deleteItem(item.id)">Delete</button>
+      <button (click)="removeItem(item.id)">Delete</button>
+    </div>
+
+    <form
+      #updateItemForm="ngForm"
+      (ngSubmit)="updateItem(item)"
+      class="updateItemForm"
+    >
+      <h2>Edit quantity</h2>
+      <!-- <input type="text" ngModel name="item.quantity" /> -->
+      <input type="text" [(ngModel)]="item.quantity" name="quantity">
+      <button>Save</button>
+    </form>
+  </div>
+</section>
+
+<form
+  #addItemForm="ngForm"
+  (ngSubmit)="addItem(addItemForm)"
+  class="addItemForm"
+>
+  <h1>Add item</h1>
+  <!-- <label for="">ID:</label>
+  <input type="text" ngModel name="id" /> -->
+  <label for="">Product:</label>
+  <input type="text" ngModel name="product" />
+  <label for="">Price:</label>
+  <input type="text" ngModel name="price" />
+  <label for="">Quantity:</label>
+  <input type="text" ngModel name="quantity" />
+  <button>Add</button>
+</form>
+
+<!-- <section class="invoice">
+  <h1>Invoice</h1>
+  <div *ngFor="let item of cartItems" class="invoiceItem">
+    <div class="itemDetails">
+      <h2>Item details</h2>
+      <p>ID: {{ item.id }}</p>
+      <p>Product: {{ item.product }}</p>
+      <p>Price: {{ item.price }}</p>
+      <p>Quantity: {{ item.quantity }}</p>
+      <button (click)="removeItem(item.id)">Delete</button>
     </div>
 
     <form #updateItem="ngForm" (ngSubmit)="replaceItem(updateItem.value.id, updateItem.value.newId, updateItem.value.newProduct, updateItem.value.newPrice, updateItem.value.newQuantity)" class="updateItemForm">
@@ -25,7 +67,7 @@
   </div>
 </section>
 
-<form #addItemForm="ngForm" (ngSubmit)="addItem(addItemForm.value.id, addItemForm.value.product, addItemForm.value.price, addItemForm.value.quantity)" class="addItemForm">
+<form #addItemForm="ngForm" (ngSubmit)="addItem(addItemForm)" class="addItemForm">
   <h1>Add item</h1>
   <label for="">ID:</label>
   <input type="text" ngModel name="id" class="formInput" />
@@ -36,4 +78,4 @@
   <label for="">Quantity:</label>
   <input type="text" ngModel name="quantity" class="formInput" />
   <button>Add</button>
-</form>
+</form> -->

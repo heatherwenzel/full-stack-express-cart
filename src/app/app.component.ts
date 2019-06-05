@@ -15,32 +15,56 @@ export class AppComponent {
     });
   }
 
-  addItem(id: number, product: string, price: number, quantity: number) {
+  // addItem(id: number, product: string, price: number, quantity: number) {
+  //   this.apiService
+  //     .addItem(id, product, price, quantity)
+  //     .subscribe(response => {
+  //       this.cartItems = response;
+  //     });
+  // }
+
+  addItem(form) {
     this.apiService
-      .addItem(id, product, price, quantity)
+      .addItem(form.value)
       .subscribe(response => {
         this.cartItems = response;
-      });
+    });
   }
 
-  replaceItem(
-    id: number,
-    newId: number,
-    newProduct: string,
-    newPrice: number,
-    newQuantity: number
-  ) {
+  // replaceItem(
+  //   id: number,
+  //   newId: number,
+  //   newProduct: string,
+  //   newPrice: number,
+  //   newQuantity: number
+  // ) {
+  //   this.apiService
+  //     .replaceItem(id, newId, newProduct, newPrice, newQuantity)
+  //     .subscribe(response => {
+  //       this.cartItems = response;
+  //     });
+  // }
+
+  updateItem(item) {
     this.apiService
-      .replaceItem(id, newId, newProduct, newPrice, newQuantity)
+      .updateItem(item)
       .subscribe(response => {
         this.cartItems = response;
-      });
+    });
   }
 
-  deleteItem(id: number) {
-    console.log(id);    
-    this.apiService.deleteItem(id).subscribe(response => {
-      this.cartItems = response;
+  // deleteItem(id: number) {
+  //   console.log(id);    
+  //   this.apiService.deleteItem(id).subscribe(response => {
+  //     this.cartItems = response;
+  //   });
+  // }
+
+  removeItem(id) {
+    this.apiService
+      .removeItem(id)
+      .subscribe(response => {
+        this.cartItems = response;
     });
   }
   
